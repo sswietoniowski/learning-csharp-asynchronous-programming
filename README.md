@@ -1,6 +1,6 @@
 # Learning C# - Asynchronous Programming
 
-This repository contains examples about asynchronous programming in C#.
+This repository contains examples showing use of asynchronous programming in C#.
 
 ## Repository Contents
 
