@@ -19,7 +19,7 @@ Based on these (free) courses:
 Also used these (paid) courses & books:
 
 - [Applying Asynchronous Programming in C#](https://app.pluralsight.com/library/courses/applying-asynchronous-programming-c-sharp/table-of-contents) [:file_folder:](https://app.pluralsight.com/library/courses/applying-asynchronous-programming-c-sharp/exercise-files),
-- [Parallel Programming and Concurrency with C# 10 and .NET 6](https://learning.oreilly.com/library/view/parallel-programming-and/9781803243672/)[:file_folder:](https://github.com/PacktPublishing/Parallel-Programming-and-Concurrency-with-C-sharp-10-and-.NET-6).
+- [Parallel Programming and Concurrency with C# 10 and .NET 6](https://learning.oreilly.com/library/view/parallel-programming-and/9781803243672/) [:file_folder:](https://github.com/PacktPublishing/Parallel-Programming-and-Concurrency-with-C-sharp-10-and-.NET-6).
 
 ## Useful Tools & Libraries
 
