@@ -15,7 +15,6 @@ namespace StockAnalyzer.CrossPlatform
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .UseReactiveUI()
-                .LogToDebug();
+                .UseReactiveUI();
     }
 }

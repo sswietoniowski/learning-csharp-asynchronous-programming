@@ -8,8 +8,10 @@ using StockAnalyzer.Core.Domain;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace StockAnalyzer.CrossPlatform
 {
@@ -46,16 +48,14 @@ namespace StockAnalyzer.CrossPlatform
         private static string API_URL = "https://ps-async.fekberg.com/api/stocks";
         private Stopwatch stopwatch = new Stopwatch();
 
-        private void Search_Click(object sender, RoutedEventArgs e)
+        private async void Search_Click(object sender, RoutedEventArgs e)
         {
             BeforeLoadingStockData();
 
-            var client = new WebClient();
+            using var client = new HttpClient();
 
-            var content = client.DownloadString($"{API_URL}/{StockIdentifier.Text}");
-
-            // Simulate that the web call takes a very long time
-            Thread.Sleep(10000);
+            var response = await client.GetAsync($"{API_URL}/{StockIdentifier.Text}");
+            var content = await response.Content.ReadAsStringAsync();
 
             var data = JsonConvert.DeserializeObject<IEnumerable<StockPrice>>(content);
 
