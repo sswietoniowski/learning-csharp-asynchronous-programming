@@ -5,14 +5,11 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Newtonsoft.Json;
 using StockAnalyzer.Core.Domain;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
-using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace StockAnalyzer.CrossPlatform
 {
@@ -31,9 +28,6 @@ namespace StockAnalyzer.CrossPlatform
         public MainWindow()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         private void InitializeComponent()

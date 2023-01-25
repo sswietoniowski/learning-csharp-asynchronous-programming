@@ -1,8 +1,5 @@
-﻿using System;
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
+﻿using Avalonia;
 using Avalonia.ReactiveUI;
-using Avalonia.Logging.Serilog;
 
 namespace StockAnalyzer.CrossPlatform
 {
