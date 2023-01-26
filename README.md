@@ -6,7 +6,7 @@ This repository contains examples showing use of asynchronous programming in C#.
 
 This repository contains the following sub-directories:
 
-- [projects](./projects) demo projects created using aftermentioned technologies & more :-).
+- [projects](./projects) demo projects created using aforementioned technologies & more :-).
 
 ## Learning Resources
 
