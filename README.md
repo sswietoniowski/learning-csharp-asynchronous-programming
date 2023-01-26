@@ -18,8 +18,10 @@ Based on these (free) courses:
 
 Also used these (paid) courses & books:
 
-- [Applying Asynchronous Programming in C#](https://app.pluralsight.com/library/courses/applying-asynchronous-programming-c-sharp/table-of-contents) [:file_folder:](https://app.pluralsight.com/library/courses/applying-asynchronous-programming-c-sharp/exercise-files) [:file_folder:](https://github.com/fekberg/c-sharp-asynchronous-programming),
-- [Parallel Programming and Concurrency with C# 10 and .NET 6](https://learning.oreilly.com/library/view/parallel-programming-and/9781803243672/) [:file_folder:](https://github.com/PacktPublishing/Parallel-Programming-and-Concurrency-with-C-sharp-10-and-.NET-6).
+- ~~[Applying Asynchronous Programming in C#](https://app.pluralsight.com/library/courses/applying-asynchronous-programming-c-sharp/table-of-contents) [:file_folder:](https://app.pluralsight.com/library/courses/applying-asynchronous-programming-c-sharp/exercise-files) [:file_folder:](https://github.com/fekberg/applying-asynchronous-programming-c-sharp)~~,
+- [Asynchronous Programming in C# 10](https://app.pluralsight.com/library/courses/c-sharp-10-asynchronous-programming/table-of-contents) [:file_folder:](https://app.pluralsight.com/library/courses/c-sharp-10-asynchronous-programming/exercise-files) [:file_folder:](https://github.com/fekberg/c-sharp-asynchronous-programming),
+- [Building Multithreaded C# 8 Applications with the Task Parallel Library](https://app.pluralsight.com/library/courses/building-multithreaded-c-sharp-applications-task-parallel-library/exercise-files) [:file_folder:](https://github.com/fekberg/building-multithreaded-c-sharp-applications-task-parallel-library),
+ [Parallel Programming and Concurrency with C# 10 and .NET 6](https://learning.oreilly.com/library/view/parallel-programming-and/9781803243672/) [:file_folder:](https://github.com/PacktPublishing/Parallel-Programming-and-Concurrency-with-C-sharp-10-and-.NET-6).
 
 ## Useful Tools & Libraries
 
