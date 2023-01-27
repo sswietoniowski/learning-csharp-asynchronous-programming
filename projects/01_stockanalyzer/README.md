@@ -21,7 +21,7 @@ You must know that `Task` would be returned from an asynchronous method. You can
 An example of an asynchronous method is shown below:
 
 ```csharp
-public async Task<string> GetHtmlAsync(string url)
+public async Task<string> GetHtml(string url)
 {
     using (var client = new HttpClient())
     {
@@ -70,6 +70,41 @@ var task = Task.Run(() => GetHtml("https://www.google.com"));
 var html = await task;
 ```
 
+To retrieve the result of a task you can use the `Result` property. This property is a blocking call and will wait for the task to complete.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+var html = task.Result;
+```
+
+We can use `Dispatcher` to run a method on the UI thread.
+
+Example:
+
+```csharp
+Dispatcher.Invoke(() => MessageBox.Show("Hello World!"));
+```
+
+To wait until a task is completed you can use the `Wait` method.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+task.Wait();
+```
+
+Alternatively, you can use `async` and `await` to wait for a task to complete.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+await task;
+```
+
 Summary:
 
 ## Exploring Useful Methods in the Task Parallel Library
@@ -85,3 +120,7 @@ Summary:
 Summary:
 
 Now you know how to use asynchronous programming in C# :-) (at least the basics).
+
+```
+
+```
