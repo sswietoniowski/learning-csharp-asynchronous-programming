@@ -312,7 +312,16 @@ if (completedTask == timeoutTask)
 }
 ```
 
+Precomputed results of a task can be used to start another task. Sometimes we don't want to call an API, but
+we want to use a mock result. We can use the `Task.FromResult` method to create a task that is already completed.
 
+Example:
+
+```csharp
+var task = Task.FromResult("Hello World!");
+```
+
+There is also `Task.CompletedTask` that is a task that is already completed, also there is `Task.FromCanceled` and `Task.FromException`.
 
 The `ConfigureAwait` is a method that can be used to configure the `await` operator. It can be used to specify whether the continuation should be scheduled on the current synchronization context or not.
 
@@ -321,6 +330,26 @@ Example:
 ```csharp
 var task = Task.Run(() => GetHtml("https://www.google.com"));
 var result = await task.ConfigureAwait(false);
+```
+
+To process tasks results as they complete we can use the `Task.WhenAny` method.
+
+Example:
+
+```csharp
+var tasks = new List<Task<string>>();
+for (var i = 0; i < 10; i++)
+{
+    tasks.Add(Task.Run(() => GetHtml("https://www.google.com")));
+}
+
+while (tasks.Count > 0)
+{
+    var completedTask = await Task.WhenAny(tasks);
+    tasks.Remove(completedTask);
+    var result = completedTask.Result;
+    // do something with result
+}
 ```
 
 Summary:
