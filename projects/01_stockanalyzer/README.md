@@ -474,16 +474,23 @@ Implications of `async` and `await`:
 - `async` methods are not thread-safe,
 - `async` methods are not reentrant.
 
-To reduce amount of state machines we can use the `ValueTask` type. It is a struct that can be used to return a task or a value.
+We can simplify the code by eliminating the `async` and `await` keywords and using the `Task` and `Task<T>` types.
+
+Example (no state machine code would be generated):
+
+```csharp
+public Task<string> GetHtmlAsync(string url)
+{
+    return _httpClient.GetStringAsync(url);
+}
+```
+
+But we must remember that whomever is calling this method must await the result.
 
 Example:
 
 ```csharp
-public async ValueTask<string> GetHtmlAsync(string url)
-{
-    var response = await _httpClient.GetAsync(url);
-    return await response.Content.ReadAsStringAsync();
-}
+var result = await GetHtmlAsync("https://www.google.com");
 ```
 
 ### Deadlocking
@@ -497,7 +504,7 @@ public async Task Deadlock()
 {
     var task1 = Task.Run(() => GetHtml("https://www.google.com"));
     var task2 = Task.Run(() => GetHtml("https://www.yahoo.com"));
-    await Task.WhenAll(task1, task2);
+    task1.Wait(); // deadlock because the thread is waiting for a lock that is held by another thread
 }
 
 public async Task GetHtml(string url)
@@ -508,6 +515,18 @@ public async Task GetHtml(string url)
 ```
 
 To avoid deadlocking we can use the `ConfigureAwait(false)` method.
+
+Example:
+
+```csharp
+public async Task GetHtml(string url)
+{
+    var response = await _httpClient.GetAsync(url).ConfigureAwait(false);
+    var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+}
+```
+
+It is really easy to introduce deadlocking in a code. For example, we can use the `Task.Wait` method.
 
 Summary:
 
