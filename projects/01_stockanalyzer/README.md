@@ -156,6 +156,29 @@ var task = Task.Run(() => GetHtml("https://www.google.com"));
 var continuation = task.ContinueWith(task => Log(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
 ```
 
+If we're running a long-running task we might want to cancel it. We can use the `CancellationToken` class to cancel a task.
+
+Example:
+
+```csharp
+var cancellationTokenSource = new CancellationTokenSource();
+var cancellationToken = cancellationTokenSource.Token;
+var task = Task.Run(() => GetHtml("https://www.google.com", cancellationToken));
+cancellationTokenSource.Cancel();
+```
+
+We can do something similar with `HttpClient`.
+
+Example:
+
+```csharp
+var cancellationTokenSource = new CancellationTokenSource();
+var cancellationToken = cancellationTokenSource.Token;
+var client = new HttpClient();
+var task = client.GetStringAsync("https://www.google.com", cancellationToken);
+cancellationTokenSource.Cancel();
+```
+
 Summary:
 
 ## Exploring Useful Methods in the Task Parallel Library
