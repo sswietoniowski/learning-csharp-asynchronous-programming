@@ -48,7 +48,7 @@ Summary:
 
 ## Using the Task Parallel Library for Asynchronous Programming
 
-The Task Parallel Library (TPL) is a library that provides support for parallel programming in .NET. It provides a high-level abstraction for parallel programming. It also provides a low-level abstraction for parallel programming.
+> The Task Parallel Library (TPL) is a library that provides support for parallel programming in .NET. It provides a high-level abstraction for parallel programming. It also provides a low-level abstraction for parallel programming.
 
 The Task Parallel Library provides the following features:
 
@@ -105,13 +105,46 @@ var task = Task.Run(() => GetHtml("https://www.google.com"));
 await task;
 ```
 
-To chain asynchronous operations together you can use the `ContinueWith` method.
+To chain asynchronous operations together you can use the `ContinueWith` method (we can also nest asynchronous operations).
 
 Example:
 
 ```csharp
 var task = Task.Run(() => GetHtml("https://www.google.com"));
 var continuation = task.ContinueWith(task => Dispatcher.Invoke(() => MessageBox.Show(task.Result)););
+```
+
+To check whether a task is completed you can use the `IsCompleted` property.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+if (task.IsCompleted)
+{
+    // do something
+}
+```
+
+To verify whether a task has completed successfully you can use the `IsFaulted` property.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+if (task.IsFaulted)
+{
+    // do something
+}
+```
+
+To continue only if a task has completed successfully you can use the `ContinueWith` method.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+var continuation = task.ContinueWith(task => Dispatcher.Invoke(() => MessageBox.Show(task.Result));, TaskContinuationOptions.OnlyOnRanToCompletion);
 ```
 
 Summary:
