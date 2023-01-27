@@ -260,6 +260,69 @@ Summary:
 
 ## Exploring Useful Methods in the Task Parallel Library
 
+If we need to know whether all tasks or any task has completed we can use the `Task.WhenAll` and `Task.WhenAny` methods.
+
+Example:
+
+```csharp
+var tasks = new List<Task<string>>();
+for (var i = 0; i < 10; i++)
+{
+    tasks.Add(Task.Run(() => GetHtml("https://www.google.com")));
+}
+
+var completedTask = await Task.WhenAny(tasks);
+var completedTaskResult = completedTask.Result;
+```
+
+If we need to wait for all tasks to complete we can use the `Task.WhenAll` method.
+
+Example:
+
+```csharp
+var tasks = new List<Task<string>>();
+for (var i = 0; i < 10; i++)
+{
+    tasks.Add(Task.Run(() => GetHtml("https://www.google.com")));
+}
+
+await Task.WhenAll(tasks);
+```
+
+If we need to be sure that all tasks are completed within the given timeout we can use the `Task.WhenAll` and `Task.Delay` methods.
+
+Example:
+
+```csharp
+var cancellationTokenSource = new CancellationTokenSource();
+var cancellationToken = cancellationTokenSource.Token;
+
+var tasks = new List<Task<string>>();
+for (var i = 0; i < 10; i++)
+{
+    tasks.Add(Task.Run(() => GetHtml("https://www.google.com")), cancellationToken);
+}
+
+var timeoutTask = Task.Delay(1000);
+var completedTask = await Task.WhenAny(tasks.Concat(new[] { timeoutTask }));
+if (completedTask == timeoutTask)
+{
+    cancellationTokenSource.Cancel();
+    throw new OperationCanceledException("Timeout!");
+}
+```
+
+
+
+The `ConfigureAwait` is a method that can be used to configure the `await` operator. It can be used to specify whether the continuation should be scheduled on the current synchronization context or not.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+var result = await task.ConfigureAwait(false);
+```
+
 Summary:
 
 ## Async and Await Advanced Topics and Best Practices
