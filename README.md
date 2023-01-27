@@ -12,6 +12,7 @@ This repository contains the following sub-directories:
 
 Based on these (free) courses:
 
+- [Asynchronous programming with async and await](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/),
 - [C# Async / Await - Make your app more responsive and faster with asynchronous programming](https://youtu.be/2moh18sh5p4),
 - [C# Advanced Async - Getting progress reports, cancelling tasks, and more](https://youtu.be/ZTKGRJy5P2M),
 - [C# Async/Await/Task Explained (Deep Dive)](https://youtu.be/il9gl8MH17s).
