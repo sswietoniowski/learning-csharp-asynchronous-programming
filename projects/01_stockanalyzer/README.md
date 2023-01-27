@@ -238,15 +238,3 @@ Summary:
 Summary:
 
 Now you know how to use asynchronous programming in C# :-) (at least the basics).
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
