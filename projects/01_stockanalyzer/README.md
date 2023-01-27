@@ -323,15 +323,6 @@ var task = Task.FromResult("Hello World!");
 
 There is also `Task.CompletedTask` that is a task that is already completed, also there is `Task.FromCanceled` and `Task.FromException`.
 
-The `ConfigureAwait` is a method that can be used to configure the `await` operator. It can be used to specify whether the continuation should be scheduled on the current synchronization context or not.
-
-Example:
-
-```csharp
-var task = Task.Run(() => GetHtml("https://www.google.com"));
-var result = await task.ConfigureAwait(false);
-```
-
 To process tasks results as they complete we can use the `Task.WhenAny` method.
 
 Example:
@@ -350,6 +341,56 @@ while (tasks.Count > 0)
     var result = completedTask.Result;
     // do something with result
 }
+```
+
+To work with TPL we should use concurrent collections. There are two types of concurrent collections: thread-safe and lock-free. The thread-safe collections are `ConcurrentQueue`, `ConcurrentStack`, `ConcurrentBag`, `ConcurrentDictionary`, `BlockingCollection`. The lock-free collections are `ConcurrentQueue`, `ConcurrentStack`, `ConcurrentBag`, `ConcurrentDictionary`.
+
+Example:
+
+```csharp
+var concurrentQueue = new ConcurrentQueue<string>();
+concurrentQueue.Enqueue("Hello");
+concurrentQueue.Enqueue("World");
+concurrentQueue.TryDequeue(out var result);
+```
+
+To create a producer-consumer pattern we can use the `BlockingCollection` class.
+
+Example:
+
+````csharp
+var blockingCollection = new BlockingCollection<string>();
+var producer = Task.Run(() =>
+{
+    while (true)
+    {
+        var result = GetHtml("https://www.google.com");
+        blockingCollection.Add(result);
+    }
+});
+
+Execution context and continuation options can be used to control the execution of a continuation.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+var continuation = task.ContinueWith(task =>
+    Dispatcher.Invoke(() => MessageBox.Show(task.Result)),
+    TaskContinuationOptions.OnlyOnRanToCompletion);
+````
+
+But what is an execution context?
+
+> It is a set of information that is associated with a task. It includes the task scheduler, the synchronization context, and the security context. The `TaskScheduler` is used to schedule the task, the `SynchronizationContext` is used to marshal the continuation to the correct thread, and the `SecurityContext` is used to set the security context for the continuation.
+
+The `ConfigureAwait` is a method that can be used to configure the `await` operator. It can be used to specify whether the continuation should be scheduled on the current synchronization context or not.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+var result = await task.ConfigureAwait(false);
 ```
 
 Summary:
