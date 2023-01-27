@@ -4,6 +4,39 @@ This repository contains examples showing use of asynchronous programming in C#.
 
 ## Getting Started with Asynchronous Programming in C# using Async and Await
 
+To get started with asynchronous programming in C# you need to understand the following concepts:
+
+> Asynchronous programming is a way of writing code that doesn't block the current thread while waiting for a result.
+
+To use asynchronous programming in C# you need to use the `async` and `await` keywords.
+
+The `async` keyword is used to mark a method as asynchronous.
+
+The `await` keyword is used to wait for an asynchronous operation to complete.
+
+The `async` and `await` keywords are used together to create asynchronous methods.
+
+An example of an asynchronous method is shown below:
+
+```csharp
+public async Task<string> GetHtmlAsync(string url)
+{
+    using (var client = new HttpClient())
+    {
+        var html = await client.GetStringAsync(url);
+        return html;
+    }
+}
+```
+
+Continuation is a way of chaining asynchronous operations together. It means that you can start an asynchronous operation and then continue with another asynchronous operation when the first one completes.
+
+The `await` keyword is used to wait for an asynchronous operation to complete. It also allows you to continue with another asynchronous operation.
+
+Handling exceptions in asynchronous code is a bit different than handling exceptions in synchronous code. You need to use the `try` and `catch` keywords to handle exceptions in asynchronous code.
+
+You must know that `Task` would be returned from an asynchronous method. You can use the `Task` class to represent a single operation that does not return a value. You can use the `Task<T>` class to represent a single operation that returns a value of type `T`. Also in case of an exception inside the asynchronous method, the `Task` or `Task<T>` will rethrow the original exception.
+
 Summary:
 
 - always use `async` and `await` together,
