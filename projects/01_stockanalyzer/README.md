@@ -144,7 +144,16 @@ Example:
 
 ```csharp
 var task = Task.Run(() => GetHtml("https://www.google.com"));
-var continuation = task.ContinueWith(task => Dispatcher.Invoke(() => MessageBox.Show(task.Result));, TaskContinuationOptions.OnlyOnRanToCompletion);
+var continuation = task.ContinueWith(task => Dispatcher.Invoke(() => MessageBox.Show(task.Result)), TaskContinuationOptions.OnlyOnRanToCompletion);
+```
+
+To log exceptions in a task you can use the `ContinueWith` method.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+var continuation = task.ContinueWith(task => Log(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
 ```
 
 Summary:
@@ -162,6 +171,10 @@ Summary:
 Summary:
 
 Now you know how to use asynchronous programming in C# :-) (at least the basics).
+
+```
+
+```
 
 ```
 
