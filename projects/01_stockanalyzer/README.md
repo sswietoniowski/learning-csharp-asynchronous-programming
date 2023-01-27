@@ -111,7 +111,7 @@ Example:
 
 ```csharp
 var task = Task.Run(() => GetHtml("https://www.google.com"));
-var continuation = task.ContinueWith(task => MessageBox.Show(task.Result));
+var continuation = task.ContinueWith(task => Dispatcher.Invoke(() => MessageBox.Show(task.Result)););
 ```
 
 Summary:
