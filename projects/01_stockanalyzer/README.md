@@ -239,7 +239,24 @@ var continuation = task.ContinueWith(task =>
 cancellationTokenSource.Cancel();
 ```
 
+It is possible to register a callback that will be called when a task is cancelled.
+
+Example:
+
+```csharp
+var cancellationTokenSource = new CancellationTokenSource();
+var cancellationToken = cancellationTokenSource.Token;
+var task = Task.Run(() => GetHtml("https://www.google.com"), cancellationToken);
+cancellationToken.Register(() => MessageBox.Show("Task was cancelled"));
+cancellationTokenSource.Cancel();
+```
+
 Summary:
+
+- a `Task` represents a single asynchronous operation,
+- implement two versions of a method if you need both synchronous and asynchronous versions,
+- do not wrap the synchronous method in a `Task.Run` just to make the method asynchronous, copy the code instead and implement the asynchronous version,
+- be aware that `await` would continue on the same thread if the task is already completed, but `ContinueWith` would continue on a different thread.
 
 ## Exploring Useful Methods in the Task Parallel Library
 
