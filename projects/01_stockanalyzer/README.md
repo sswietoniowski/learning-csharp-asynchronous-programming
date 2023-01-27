@@ -211,6 +211,8 @@ var task = Task.Run(async () =>
         cancellationToken.ThrowIfCancellationRequested();
     }
 
+    // do something with result
+
     return result;
 }, cancellationToken);
 cancellationTokenSource.CancelAfter(1000);
