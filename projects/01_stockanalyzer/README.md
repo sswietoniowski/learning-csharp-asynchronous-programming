@@ -343,7 +343,9 @@ while (tasks.Count > 0)
 }
 ```
 
-To work with TPL we should use concurrent collections. There are two types of concurrent collections: thread-safe and lock-free. The thread-safe collections are `ConcurrentQueue`, `ConcurrentStack`, `ConcurrentBag`, `ConcurrentDictionary`, `BlockingCollection`. The lock-free collections are `ConcurrentQueue`, `ConcurrentStack`, `ConcurrentBag`, `ConcurrentDictionary`.
+To work with TPL we should use concurrent collections. There are two types of concurrent collections: thread-safe and lock-free. The thread-safe collections are `ConcurrentQueue`, `ConcurrentStack`, `ConcurrentBag`, `ConcurrentDictionary`, `BlockingCollection`.
+
+The lock-free collections are `ConcurrentQueue`, `ConcurrentStack`, `ConcurrentBag`, `ConcurrentDictionary`.
 
 Example:
 
@@ -390,7 +392,7 @@ Example:
 
 ```csharp
 var task = Task.Run(() => GetHtml("https://www.google.com"));
-var result = await task.ConfigureAwait(false);
+var result = await task.ConfigureAwait(false); // if we want to continue on the same thread
 ```
 
 Summary:
