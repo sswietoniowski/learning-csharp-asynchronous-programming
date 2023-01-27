@@ -223,6 +223,22 @@ if (cancellationToken.IsCancellationRequested)
 }
 ```
 
+We can use task cancellation token and task continuation options to cancel a task. But if you do that, you must also specify the `TaskScheduler` to use.
+
+Example:
+
+```csharp
+var cancellationTokenSource = new CancellationTokenSource();
+var cancellationToken = cancellationTokenSource.Token;
+var task = Task.Run(() => GetHtml("https://www.google.com"), cancellationToken);
+var continuation = task.ContinueWith(task =>
+    Dispatcher.Invoke(() => MessageBox.Show(task.Result)),
+    cancellationToken,
+    TaskContinuationOptions.OnlyOnRanToCompletion,
+    TaskScheduler.Current);
+cancellationTokenSource.Cancel();
+```
+
 Summary:
 
 ## Exploring Useful Methods in the Task Parallel Library
