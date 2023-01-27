@@ -393,9 +393,19 @@ Example:
 ```csharp
 var task = Task.Run(() => GetHtml("https://www.google.com"));
 var result = await task.ConfigureAwait(false); // if we want to continue on the same thread
+
+// nothing here should rely on the original synchronization context
 ```
 
+ASP.NET Core uses the `ConfigureAwait(false)` by default, as it doesn't have a synchronization context.
+
 Summary:
+
+- `Task.WhenAll` and `Task.WhenAny` can be used to wait for tasks to complete,
+- `Task.FromResult` can be used to create a task that is already completed,
+- `Task.WhenAny` can be used to process tasks results as they complete,
+- `ConcurrentQueue`, `ConcurrentStack`, `ConcurrentBag`, `ConcurrentDictionary`, `BlockingCollection` can be used to work with TPL,
+- `TaskScheduler`, `SynchronizationContext`, and `SecurityContext` are used to control the execution of a continuation.
 
 ## Async and Await Advanced Topics and Best Practices
 
