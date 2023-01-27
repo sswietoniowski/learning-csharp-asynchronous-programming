@@ -564,28 +564,40 @@ tcs.SetResult(42);
 var task = tcs.Task;
 ```
 
-We can also work with attached and detached tasks.
-
-Example:
-
-```csharp
-var task = Task.Run(() => GetHtml("https://www.google.com"));
-var result = await task; // detached task
-```
-
-Example:
-
-```csharp
-var task = Task.Run(() => GetHtml("https://www.google.com"));
-task.Wait(); // attached task
-```
-
 There is also `Task.Factory` that can be used to create tasks if we need more control.
 
 Example:
 
 ```csharp
 var task = Task.Factory.StartNew(() => GetHtml("https://www.google.com"));
+```
+
+If we use the `Task.Factory` we can also configure parent/child relationships between tasks.
+
+Example:
+
+```csharp
+var parent = Task.Factory.StartNew(() =>
+{
+    var child = Task.Factory.StartNew(() =>
+    {
+        // do something
+    }, TaskCreationOptions.AttachedToParent); // child task is attached to the parent task
+});
+```
+
+Alternatively:
+
+Example:
+
+```csharp
+var parent = Task.Factory.StartNew(() =>
+{
+    var child = Task.Factory.StartNew(() =>
+    {
+        // do something
+    }, TaskCreationOptions.AttachedToParent); // child task is attached to the parent task
+}, TaskCreationOptions.DenyChildAttach); // parent task is not allowed to attach child tasks
 ```
 
 Summary:
