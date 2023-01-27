@@ -105,6 +105,15 @@ var task = Task.Run(() => GetHtml("https://www.google.com"));
 await task;
 ```
 
+To chain asynchronous operations together you can use the `ContinueWith` method.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+var continuation = task.ContinueWith(task => MessageBox.Show(task.Result));
+```
+
 Summary:
 
 ## Exploring Useful Methods in the Task Parallel Library
