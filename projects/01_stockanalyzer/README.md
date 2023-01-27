@@ -176,7 +176,49 @@ var cancellationTokenSource = new CancellationTokenSource();
 var cancellationToken = cancellationTokenSource.Token;
 var client = new HttpClient();
 var task = client.GetStringAsync("https://www.google.com", cancellationToken);
-cancellationTokenSource.Cancel();
+cancellationTokenSource.CancelAfter(1000);
+```
+
+To verify that a task was cancelled we can use the `IsCancellationRequested` property.
+
+Example:
+
+```csharp
+var cancellationTokenSource = new CancellationTokenSource();
+var cancellationToken = cancellationTokenSource.Token;
+var client = new HttpClient();
+var task = client.GetStringAsync("https://www.google.com", cancellationToken);
+cancellationTokenSource.CancelAfter(1000);
+if (cancellationToken.IsCancellationRequested)
+{
+    // do something
+}
+```
+
+We can check if cancellation was requested in a task by using the `ThrowIfCancellationRequested` method, we can do that inside `Task.Run`.
+
+Example:
+
+```csharp
+var cancellationTokenSource = new CancellationTokenSource();
+var cancellationToken = cancellationTokenSource.Token;
+var task = Task.Run(async () =>
+{
+    var result = await GetHtml("https://www.google.com");
+
+    if (cancellationToken.IsCancellationRequested)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+    }
+
+    return result;
+}, cancellationToken);
+cancellationTokenSource.CancelAfter(1000);
+
+if (cancellationToken.IsCancellationRequested)
+{
+    // do something
+}
 ```
 
 Summary:
@@ -194,6 +236,10 @@ Summary:
 Summary:
 
 Now you know how to use asynchronous programming in C# :-) (at least the basics).
+
+```
+
+```
 
 ```
 
