@@ -16,6 +16,8 @@ The `await` keyword is used to wait for an asynchronous operation to complete.
 
 The `async` and `await` keywords are used together to create asynchronous methods.
 
+You must know that `Task` would be returned from an asynchronous method. You can use the `Task` class to represent a single operation that does not return a value. You can use the `Task<T>` class to represent a single operation that returns a value of type `T`. Also in case of an exception inside the asynchronous method, the `Task` or `Task<T>` will rethrow the original exception.
+
 An example of an asynchronous method is shown below:
 
 ```csharp
@@ -34,8 +36,6 @@ Continuation is a way of chaining asynchronous operations together. It means tha
 The `await` keyword is used to wait for an asynchronous operation to complete. It also allows you to continue with another asynchronous operation.
 
 Handling exceptions in asynchronous code is a bit different than handling exceptions in synchronous code. You need to use the `try` and `catch` keywords to handle exceptions in asynchronous code.
-
-You must know that `Task` would be returned from an asynchronous method. You can use the `Task` class to represent a single operation that does not return a value. You can use the `Task<T>` class to represent a single operation that returns a value of type `T`. Also in case of an exception inside the asynchronous method, the `Task` or `Task<T>` will rethrow the original exception.
 
 Summary:
 
