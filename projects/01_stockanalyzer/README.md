@@ -409,6 +409,106 @@ Summary:
 
 ## Async and Await Advanced Topics and Best Practices
 
+Asynchronous streams and disposables are two new features in C# 8.0.
+
+### Asynchronous Streams
+
+Asynchronous streams are a new feature in C# 8.0. They are used to work with streams asynchronously.
+
+Example:
+
+```csharp
+public async IAsyncEnumerable<string> GetHtmlAsync()
+{
+    var urls = new[]
+    {
+        "https://www.google.com",
+        "https://www.yahoo.com",
+        "https://www.bing.com"
+    };
+
+    foreach (var url in urls)
+    {
+        await Task.Delay(1000);
+        yield return await GetHtmlAsync(url);
+    }
+}
+```
+
+To consume an asynchronous stream we can use the `await foreach` statement.
+
+Example:
+
+```csharp
+await foreach (var html in GetHtmlAsync())
+{
+    // do something with html
+}
+```
+
+### Disposables
+
+Disposables are a new feature in C# 8.0. They are used to dispose objects asynchronously.
+
+Example:
+
+```csharp
+public async ValueTask DisposeAsync()
+{
+    await _httpClient.DisposeAsync();
+}
+```
+
+To consume a disposable we can use the `await using` statement.
+
+Example:
+
+```csharp
+await using var client = new HttpClient();
+```
+
+Implications of `async` and `await`:
+
+- `async` methods are compiled to state machines,
+- `await` is compiled to `awaiter` objects,
+- `async` methods are not thread-safe,
+- `async` methods are not reentrant.
+
+To reduce amount of state machines we can use the `ValueTask` type. It is a struct that can be used to return a task or a value.
+
+Example:
+
+```csharp
+public async ValueTask<string> GetHtmlAsync(string url)
+{
+    var response = await _httpClient.GetAsync(url);
+    return await response.Content.ReadAsStringAsync();
+}
+```
+
+### Deadlocking
+
+Deadlocking is a situation when a thread is waiting for a lock that is held by another thread, and the other thread is waiting for a lock that is held by the first thread.
+
+Example:
+
+```csharp
+public async Task Deadlock()
+{
+    var task1 = Task.Run(() => GetHtml("https://www.google.com"));
+    var task2 = Task.Run(() => GetHtml("https://www.yahoo.com"));
+    await Task.WhenAll(task1, task2);
+}
+
+public async Task GetHtml(string url)
+{
+    var response = await _httpClient.GetAsync(url);
+    var result = await response.Content.ReadAsStringAsync();
+}
+```
+
+To avoid deadlocking we can use the `ConfigureAwait(false)` method.
+
 Summary:
 
 ## Asynchronous Programming Deep Dive
