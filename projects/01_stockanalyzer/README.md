@@ -532,6 +532,62 @@ Summary:
 
 ## Asynchronous Programming Deep Dive
 
+To report a progress of a task we can use the `IProgress<T>` interface.
+
+Example:
+
+```csharp
+public async Task GetHtmlAsync(string url, IProgress<int> progress)
+{
+    var response = await _httpClient.GetAsync(url);
+    var result = await response.Content.ReadAsStringAsync();
+    progress.Report(100);
+}
+```
+
+To consume the progress we can use the `IProgress<T>` interface.
+
+Example:
+
+```csharp
+var progress = new Progress<int>(percent => Console.WriteLine(percent));
+await GetHtmlAsync("https://www.google.com", progress);
+```
+
+We can use a task completion source to create a task that is completed when the task completion source is completed.
+
+Example:
+
+```csharp
+var tcs = new TaskCompletionSource<int>();
+tcs.SetResult(42);
+var task = tcs.Task;
+```
+
+We can also work with attached and detached tasks.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+var result = await task; // detached task
+```
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+task.Wait(); // attached task
+```
+
+There is also `Task.Factory` that can be used to create tasks if we need more control.
+
+Example:
+
+```csharp
+var task = Task.Factory.StartNew(() => GetHtml("https://www.google.com"));
+```
+
 Summary:
 
 Now you know how to use asynchronous programming in C# :-) (at least the basics).
