@@ -602,4 +602,19 @@ var parent = Task.Factory.StartNew(() =>
 
 Summary:
 
+- `Task.WhenAll` and `Task.WhenAny` can be used to wait for tasks to complete,
+- `TaskCompletionSource` can be used to create a task that is completed when the task completion source is completed,
+- `Task.Factory` can be used to create tasks if we need more control,
+- `Task.Factory` can be used to configure parent/child relationships between tasks.
+
+## Parallel Programming and Multithreading in C\#
+
+Summary:
+
+## Advanced Parallel Programming: Understanding Locking and Shared Variables
+
+Summary:
+
+## Using Parallel LINQ (PLINQ)
+
 Now you know how to use asynchronous programming in C# :-) (at least the basics).
