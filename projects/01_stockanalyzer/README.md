@@ -48,6 +48,28 @@ Summary:
 
 ## Using the Task Parallel Library for Asynchronous Programming
 
+The Task Parallel Library (TPL) is a library that provides support for parallel programming in .NET. It provides a high-level abstraction for parallel programming. It also provides a low-level abstraction for parallel programming.
+
+The Task Parallel Library provides the following features:
+
+- parallel programming model,
+- task-based asynchronous programming model,
+- dataflow programming model,
+- Parallel LINQ (PLINQ) (parallel version of LINQ, created by using the `AsParallel` method),
+- parallel collections (such as `ConcurrentDictionary` and `ConcurrentQueue`),
+- parallel algorithms (such as `Parallel.For` and `Parallel.ForEach`).
+
+Sometimes you've got a great method (not necessarily asynchronous) that you want to use in an asynchronous way.
+
+You can use the `Task.Run` method to run a method asynchronously.
+
+Example:
+
+```csharp
+var task = Task.Run(() => GetHtml("https://www.google.com"));
+var html = await task;
+```
+
 Summary:
 
 ## Exploring Useful Methods in the Task Parallel Library
