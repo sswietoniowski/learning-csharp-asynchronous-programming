@@ -370,6 +370,7 @@ var producer = Task.Run(() =>
         blockingCollection.Add(result);
     }
 });
+```
 
 Execution context and continuation options can be used to control the execution of a continuation.
 
