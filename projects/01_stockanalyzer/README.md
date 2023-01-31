@@ -360,7 +360,7 @@ To create a producer-consumer pattern we can use the `BlockingCollection` class.
 
 Example:
 
-````csharp
+```csharp
 var blockingCollection = new BlockingCollection<string>();
 var producer = Task.Run(() =>
 {
@@ -381,7 +381,7 @@ var task = Task.Run(() => GetHtml("https://www.google.com"));
 var continuation = task.ContinueWith(task =>
     Dispatcher.Invoke(() => MessageBox.Show(task.Result)),
     TaskContinuationOptions.OnlyOnRanToCompletion);
-````
+```
 
 But what is an execution context?
 
